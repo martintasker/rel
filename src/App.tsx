@@ -17,11 +17,11 @@ function AppPage(): ReactElement {
   return (
     <UPage>
       <UFlexbox direction="column" style={{width: '100%', height: '100%'}}>
-        <Diagram width={400} height={300}>
-          <XTGrid />
+        <Diagram pixelSize={[400, 300]} figureSize={[10, 10]}>
+          <XTGrid xRange={[0, 8]} tRange={[0, 8]} />
         </Diagram>
-        <Diagram width={400} height={300}>
-          <XCTGrid />
+        <Diagram pixelSize={[400, 300]} figureSize={[10, 10]}>
+          <XCTGrid xRange={[-4, 4]} ctRange={[-4, 4]} />
         </Diagram>
       </UFlexbox>
     </UPage>

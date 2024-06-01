@@ -1,19 +1,28 @@
-import React, {ReactElement, ReactNode, useMemo} from 'react';
+import React, {ReactElement, ReactNode} from 'react';
 
 type Props = {
-  width: number;
-  height: number;
+  pixelSize: [number, number];
+  figureSize: [number, number];
   children: ReactNode;
 };
 
-export function Diagram({width, height, children}: Props): ReactElement {
-  const style = useMemo(
-    () => ({
-      width: `${width}px`,
-      height: `${height}px`,
-      border: '1px solid #444',
-    }),
-    [width, height],
+export function Diagram({
+  pixelSize: [width, height],
+  figureSize: [figWidth, figHeight],
+  children,
+}: Props): ReactElement {
+  const xScale = width / figWidth;
+  const yScale = height / figHeight;
+  const scale = Math.min(xScale, yScale);
+  return (
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+    >
+      <rect width="100%" height="100%" fill="#222" />
+      <g transform={`scale(${scale})`}>{children}</g>
+    </svg>
   );
-  return <div style={style}>{children}</div>;
 }
