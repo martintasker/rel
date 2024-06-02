@@ -1,5 +1,6 @@
 import React, {ReactElement, useContext} from 'react';
 import {FigureContext} from './Figure';
+import {rangeFromTo} from './util/range';
 
 type XTGridProps = {
   xRange: [number, number];
@@ -12,38 +13,30 @@ export function XTGrid({
 }: XTGridProps): ReactElement {
   const {xf, yf, fatStrokeWidth, thinStrokeWidth, strokeColor} =
     useContext(FigureContext);
-  const xLines = [];
-  for (let x = xMin; x <= xMax; x += 1) {
-    xLines.push(
-      <line
-        key={x}
-        x1={xf(x)}
-        x2={xf(x)}
-        y1={yf(tMin)}
-        y2={yf(tMax)}
-        stroke={strokeColor}
-        strokeWidth={x === 0 ? fatStrokeWidth : thinStrokeWidth}
-      />,
-    );
-  }
-  const tLines = [];
-  for (let t = tMin; t <= tMax; t += 1) {
-    tLines.push(
-      <line
-        key={t}
-        x1={xf(xMin)}
-        x2={xf(xMax)}
-        y1={yf(t)}
-        y2={yf(t)}
-        stroke={strokeColor}
-        strokeWidth={t === 0 ? fatStrokeWidth : thinStrokeWidth}
-      />,
-    );
-  }
   return (
     <>
-      {xLines}
-      {tLines}
+      {rangeFromTo(xMin, xMax).map((x) => (
+        <line
+          key={x}
+          x1={xf(x)}
+          x2={xf(x)}
+          y1={yf(tMin)}
+          y2={yf(tMax)}
+          stroke={strokeColor}
+          strokeWidth={x === 0 ? fatStrokeWidth : thinStrokeWidth}
+        />
+      ))}
+      {rangeFromTo(tMin, tMax).map((t) => (
+        <line
+          key={t}
+          x1={xf(xMin)}
+          x2={xf(xMax)}
+          y1={yf(t)}
+          y2={yf(t)}
+          stroke={strokeColor}
+          strokeWidth={t === 0 ? fatStrokeWidth : thinStrokeWidth}
+        />
+      ))}
     </>
   );
 }
@@ -57,25 +50,32 @@ export function XCTGrid({
   xRange: [xMin, xMax],
   ctRange: [ctMin, ctMax],
 }: XCTGridProps): ReactElement {
-  const {xf, yf, fatStrokeWidth, strokeColor} = useContext(FigureContext);
+  const {xf, yf, fatStrokeWidth, thinStrokeWidth, strokeColor} =
+    useContext(FigureContext);
   return (
     <>
-      <line
-        x1={xf(xMin)}
-        x2={xf(xMax)}
-        y1={yf(0)}
-        y2={yf(0)}
-        strokeWidth={fatStrokeWidth}
-        stroke={strokeColor}
-      />
-      <line
-        x1={xf(0)}
-        x2={xf(0)}
-        y1={yf(ctMin)}
-        y2={yf(ctMax)}
-        strokeWidth={fatStrokeWidth}
-        stroke={strokeColor}
-      />
+      {rangeFromTo(xMin, xMax).map((x) => (
+        <line
+          key={x}
+          x1={xf(x)}
+          x2={xf(x)}
+          y1={yf(ctMin)}
+          y2={yf(ctMax)}
+          stroke={strokeColor}
+          strokeWidth={x === 0 ? fatStrokeWidth : thinStrokeWidth}
+        />
+      ))}
+      {rangeFromTo(ctMin, ctMax).map((ct) => (
+        <line
+          key={ct}
+          x1={xf(xMin)}
+          x2={xf(xMax)}
+          y1={yf(ct)}
+          y2={yf(ct)}
+          stroke={strokeColor}
+          strokeWidth={ct === 0 ? fatStrokeWidth : thinStrokeWidth}
+        />
+      ))}
     </>
   );
 }
