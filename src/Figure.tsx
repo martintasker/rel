@@ -23,12 +23,12 @@ const defaultFigureContext: FigureContextType = {
   pixelSize: [100, 100],
   xRange: [0, 1],
   yRange: [0, 1],
-  xf: x => x,
-  yf: y => y,
+  xf: (x) => x,
+  yf: (y) => y,
   backgroundColor: '#111',
   strokeColor: '#888',
   thinStrokeWidth: 0.03,
-  fatStrokeWidth: 0.05,
+  fatStrokeWidth: 0.1,
 };
 
 export const FigureContext =
@@ -49,6 +49,8 @@ export function Figure({
   const xScale = width / figWidth;
   const yScale = height / figHeight;
   const scale = Math.min(xScale, yScale);
+  const dx = 0.5 * (width - scale * (xMax - xMin));
+  const dy = 0.5 * (height - scale * (yMax - yMin));
 
   const value: FigureContextType = useMemo(
     () => ({
@@ -56,8 +58,8 @@ export function Figure({
       pixelSize,
       xRange,
       yRange,
-      xf: x => x - xMin,
-      yf: y => yMax - y,
+      xf: (x) => x - xMin,
+      yf: (y) => yMax - y,
     }),
     [pixelSize, xMin, xRange, yMax, yRange],
   );
@@ -72,7 +74,9 @@ export function Figure({
           height={height}
         >
           <rect width="100%" height="100%" fill={backgroundColor} />
-          <g transform={`scale(${scale})`}>{children}</g>
+          <g transform={`translate(${dx}, ${dy}) scale(${scale})`}>
+            {children}
+          </g>
         </svg>
       </div>
     </FigureContext.Provider>
