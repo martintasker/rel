@@ -10,25 +10,40 @@ export function XTGrid({
   xRange: [xMin, xMax],
   tRange: [tMin, tMax],
 }: XTGridProps): ReactElement {
-  const {xf, yf} = useContext(FigureContext);
-  return (
-    <>
+  const {xf, yf, fatStrokeWidth, thinStrokeWidth, strokeColor} =
+    useContext(FigureContext);
+  const xLines = [];
+  for (let x = xMin; x <= xMax; x += 1) {
+    xLines.push(
       <line
-        x1={xf(xMin)}
-        x2={xf(xMax)}
-        y1={yf(0)}
-        y2={yf(0)}
-        strokeWidth="0.05"
-        stroke="#666"
-      />
-      <line
-        x1={xf(0)}
-        x2={xf(0)}
+        key={x}
+        x1={xf(x)}
+        x2={xf(x)}
         y1={yf(tMin)}
         y2={yf(tMax)}
-        strokeWidth="0.05"
-        stroke="#666"
-      />
+        stroke={strokeColor}
+        strokeWidth={x === 0 ? fatStrokeWidth : thinStrokeWidth}
+      />,
+    );
+  }
+  const tLines = [];
+  for (let t = tMin; t <= tMax; t += 1) {
+    tLines.push(
+      <line
+        key={t}
+        x1={xf(xMin)}
+        x2={xf(xMax)}
+        y1={yf(t)}
+        y2={yf(t)}
+        stroke={strokeColor}
+        strokeWidth={t === 0 ? fatStrokeWidth : thinStrokeWidth}
+      />,
+    );
+  }
+  return (
+    <>
+      {xLines}
+      {tLines}
     </>
   );
 }
@@ -42,7 +57,7 @@ export function XCTGrid({
   xRange: [xMin, xMax],
   ctRange: [ctMin, ctMax],
 }: XCTGridProps): ReactElement {
-  const {xf, yf} = useContext(FigureContext);
+  const {xf, yf, fatStrokeWidth, strokeColor} = useContext(FigureContext);
   return (
     <>
       <line
@@ -50,16 +65,16 @@ export function XCTGrid({
         x2={xf(xMax)}
         y1={yf(0)}
         y2={yf(0)}
-        strokeWidth="0.05"
-        stroke="#666"
+        strokeWidth={fatStrokeWidth}
+        stroke={strokeColor}
       />
       <line
         x1={xf(0)}
         x2={xf(0)}
         y1={yf(ctMin)}
         y2={yf(ctMax)}
-        strokeWidth="0.05"
-        stroke="#666"
+        strokeWidth={fatStrokeWidth}
+        stroke={strokeColor}
       />
     </>
   );
