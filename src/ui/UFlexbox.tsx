@@ -23,7 +23,6 @@ export default function UFlexbox({
       style={{
         display: 'flex',
         flexDirection: direction,
-        justifyContent: 'stretch',
         gap,
         ...style,
       }}

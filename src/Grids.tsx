@@ -5,11 +5,13 @@ import {rangeFromTo} from './util/range';
 type XTGridProps = {
   xRange: [number, number];
   tRange: [number, number];
+  thinStrokeDashArray?: string | undefined;
 };
 
 export function XTGrid({
   xRange: [xMin, xMax],
   tRange: [tMin, tMax],
+  thinStrokeDashArray,
 }: XTGridProps): ReactElement {
   const {xf, yf, fatStrokeWidth, thinStrokeWidth, strokeColor} =
     useContext(FigureContext);
@@ -24,6 +26,7 @@ export function XTGrid({
           y2={yf(tMax)}
           stroke={strokeColor}
           strokeWidth={x === 0 ? fatStrokeWidth : thinStrokeWidth}
+          strokeDasharray={strokeDashArray(x, thinStrokeDashArray)}
         />
       ))}
       {rangeFromTo(tMin, tMax).map((t) => (
@@ -35,6 +38,7 @@ export function XTGrid({
           y2={yf(t)}
           stroke={strokeColor}
           strokeWidth={t === 0 ? fatStrokeWidth : thinStrokeWidth}
+          strokeDasharray={strokeDashArray(t, thinStrokeDashArray)}
         />
       ))}
     </>
@@ -44,11 +48,13 @@ export function XTGrid({
 type XCTGridProps = {
   xRange: [number, number];
   ctRange: [number, number];
+  thinStrokeDashArray?: string | undefined;
 };
 
 export function XCTGrid({
   xRange: [xMin, xMax],
   ctRange: [ctMin, ctMax],
+  thinStrokeDashArray,
 }: XCTGridProps): ReactElement {
   const {xf, yf, fatStrokeWidth, thinStrokeWidth, strokeColor} =
     useContext(FigureContext);
@@ -63,6 +69,7 @@ export function XCTGrid({
           y2={yf(ctMax)}
           stroke={strokeColor}
           strokeWidth={x === 0 ? fatStrokeWidth : thinStrokeWidth}
+          strokeDasharray={strokeDashArray(x, thinStrokeDashArray)}
         />
       ))}
       {rangeFromTo(ctMin, ctMax).map((ct) => (
@@ -74,8 +81,20 @@ export function XCTGrid({
           y2={yf(ct)}
           stroke={strokeColor}
           strokeWidth={ct === 0 ? fatStrokeWidth : thinStrokeWidth}
+          strokeDasharray={strokeDashArray(ct, thinStrokeDashArray)}
         />
       ))}
     </>
   );
+}
+
+function strokeDashArray(
+  coord: number,
+  strokeDashArray: string | undefined,
+): string {
+  return coord === 0
+    ? null
+    : strokeDashArray == null
+    ? undefined
+    : strokeDashArray;
 }
