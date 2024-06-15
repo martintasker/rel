@@ -4,9 +4,13 @@ import {UThemeContext} from './UTheme';
 
 type Props = {
   children: ReactNode;
+  isScrollable?: boolean;
 };
 
-export default function UPage({children}: Props): ReactElement {
+export default function UPage({
+  isScrollable = false,
+  children,
+}: Props): ReactElement {
   const {backgroundColor, color} = useContext(UThemeContext);
   return (
     <div
@@ -14,6 +18,7 @@ export default function UPage({children}: Props): ReactElement {
       style={{
         backgroundColor,
         color,
+        overflowY: isScrollable ? 'auto' : 'hidden',
       }}
     >
       {children}
