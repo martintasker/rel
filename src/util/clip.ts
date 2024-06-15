@@ -8,20 +8,32 @@ export function clip(
   yMin: number,
   yMax: number,
 ): [number, number, number, number] | null {
-  if (x1 > x2 || x1 > xMax || y1 > y2 || y1 > yMax || x2 < xMin || y2 < yMin) {
+  if (
+    (x1 > xMax && x2 > xMax) ||
+    (y1 > yMax && y2 > yMax) ||
+    (x1 < xMin && x2 < xMin && y1 < yMin && y2 < yMin)
+  ) {
     return null;
   }
   let x1c = x1;
   let y1c = y1;
   let x2c = x2;
   let y2c = y2;
+  if (x1c > x2c) {
+    const xt = x2c;
+    x2c = x1c;
+    x1c = xt;
+    const yt = y2c;
+    y2c = y1c;
+    y1c = yt;
+  }
   if (x1c < xMin) {
     const dx = x2c - x1c;
     const dy = y2c - y1c;
     const prop = (x2c - xMin) / dx;
     x1c = xMin;
     y1c = y2c - prop * dy;
-    if (y1c > yMax) {
+    if ((dy > 0 && y1c > yMax) || (dy < 0 && y1c < yMin)) {
       return null;
     }
   }
@@ -31,9 +43,17 @@ export function clip(
     const prop = (xMax - x1c) / dx;
     x2c = xMax;
     y2c = y1c + prop * dy;
-    if (y2c < yMin) {
+    if ((dy > 0 && y2c < yMin) || (dy < 0 && y2c > yMax)) {
       return null;
     }
+  }
+  if (y1c > y2c) {
+    const xt = x2c;
+    x2c = x1c;
+    x1c = xt;
+    const yt = y2c;
+    y2c = y1c;
+    y1c = yt;
   }
   if (y1c < yMin) {
     const dx = x2c - x1c;
@@ -41,7 +61,7 @@ export function clip(
     const prop = (y2c - yMin) / dy;
     x1c = x2c - prop * dx;
     y1c = yMin;
-    if (x1c > xMax) {
+    if ((dx > 0 && x1c > xMax) || (dx < 0 && x1c < xMin)) {
       return null;
     }
   }
@@ -51,7 +71,7 @@ export function clip(
     const prop = (yMax - y1c) / dy;
     x2c = x1c + prop * dx;
     y2c = yMax;
-    if (x2c < xMin) {
+    if ((dx > 0 && x2c < xMin) || (dx < 0 && x2c > xMax)) {
       return null;
     }
   }

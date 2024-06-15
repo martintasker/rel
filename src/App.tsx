@@ -30,11 +30,15 @@ function AppPage(): ReactElement {
             <XTGrid xRange={[-2, 6]} tRange={[-2, 6]} v={0.5} />
           </Figure>
           <Figure pixelSize={[400, 300]} xRange={[-5, 5]} yRange={[-5, 5]}>
-            <XCTGrid
-              xRange={[-4, 4]}
-              ctRange={[-4, 4]}
-              thinStrokeDashArray="0.1"
-            />
+            <XCTGrid xRange={[-4, 4]} ctRange={[-4, 4]} beta={0.5} />
+          </Figure>
+        </UFlexbox>
+        <UFlexbox direction="column">
+          <Figure pixelSize={[400, 300]} xRange={[-3, 7]} yRange={[-3, 7]}>
+            <XTGrid xRange={[-2, 6]} tRange={[-2, 6]} v={-0.25} />
+          </Figure>
+          <Figure pixelSize={[400, 300]} xRange={[-5, 5]} yRange={[-5, 5]}>
+            <XCTGrid xRange={[-4, 4]} ctRange={[-4, 4]} beta={-0.25} />
           </Figure>
         </UFlexbox>
       </UFlexbox>
