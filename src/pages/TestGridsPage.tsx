@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import UFlexbox from '../ui/UFlexbox';
-import {XCTGrid, XTGrid} from '../Grids';
-import {Figure} from '../Figure';
+import {XCTGrid, XTGrid} from '../components/Grids';
+import {Figure} from '../components/Figure';
 
 export default function TestGridsPage(): ReactElement {
   return (

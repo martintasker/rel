@@ -1,7 +1,7 @@
 import React, {ReactElement, useContext} from 'react';
 import {FigureContext} from './Figure';
-import {rangeFromTo} from './util/range';
-import {clip} from './util/clip';
+import {rangeFromTo} from '../util/range';
+import {clip} from '../util/clip';
 
 type XTGridProps = {
   xRange: [number, number];
