@@ -7,7 +7,7 @@ type Props = {
   children: ReactNode;
 };
 
-type FigureContextType = {
+type URFigureContextType = {
   pixelSize: [number, number];
   xRange: [number, number];
   yRange: [number, number];
@@ -19,7 +19,7 @@ type FigureContextType = {
   fatStrokeWidth: number;
 };
 
-const defaultFigureContext: FigureContextType = {
+const defaultFigureContext: URFigureContextType = {
   pixelSize: [100, 100],
   xRange: [0, 1],
   yRange: [0, 1],
@@ -31,10 +31,10 @@ const defaultFigureContext: FigureContextType = {
   fatStrokeWidth: 0.1,
 };
 
-export const FigureContext =
-  createContext<FigureContextType>(defaultFigureContext);
+export const URFigureContext =
+  createContext<URFigureContextType>(defaultFigureContext);
 
-export function Figure({
+export function URFigure({
   pixelSize,
   xRange,
   yRange,
@@ -52,7 +52,7 @@ export function Figure({
   const dx = 0.5 * (width - scale * (xMax - xMin));
   const dy = 0.5 * (height - scale * (yMax - yMin));
 
-  const value: FigureContextType = useMemo(
+  const value: URFigureContextType = useMemo(
     () => ({
       ...defaultFigureContext,
       pixelSize,
@@ -65,7 +65,7 @@ export function Figure({
   );
 
   return (
-    <FigureContext.Provider value={value}>
+    <URFigureContext.Provider value={value}>
       <div style={{width, height}}>
         <svg
           version="1.1"
@@ -79,6 +79,6 @@ export function Figure({
           </g>
         </svg>
       </div>
-    </FigureContext.Provider>
+    </URFigureContext.Provider>
   );
 }

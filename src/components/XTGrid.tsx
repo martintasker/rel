@@ -1,5 +1,5 @@
 import React, {ReactElement, useContext} from 'react';
-import {FigureContext} from './Figure';
+import {URFigureContext} from './URFigure';
 import {rangeFromTo} from '../util/range';
 import {clip} from '../util/clip';
 import {strokeDashArray} from './strokeDashArray';
@@ -17,7 +17,7 @@ export function XTGrid({
 }: XTGridProps): ReactElement {
   const thinStrokeDashArray = v === 0 ? undefined : '0.1';
   const {xf, yf, fatStrokeWidth, thinStrokeWidth, strokeColor} =
-    useContext(FigureContext);
+    useContext(URFigureContext);
   // backward Galilean transform -- (x', t') -> (x, t)
   const xr = (xp: number, tp: number) => xp + v * tp;
   const tr = (tp: number) => tp;

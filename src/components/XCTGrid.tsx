@@ -1,5 +1,5 @@
 import React, {ReactElement, useContext} from 'react';
-import {FigureContext} from './Figure';
+import {URFigureContext} from './URFigure';
 import {rangeFromTo} from '../util/range';
 import {clip} from '../util/clip';
 import {strokeDashArray} from './strokeDashArray';
@@ -17,7 +17,7 @@ export function XCTGrid({
 }: XCTGridProps): ReactElement {
   const thinStrokeDashArray = beta === 0 ? undefined : '0.1';
   const {xf, yf, fatStrokeWidth, thinStrokeWidth, strokeColor} =
-    useContext(FigureContext);
+    useContext(URFigureContext);
 
   const gamma = 1 / Math.sqrt(1 - beta * beta);
   // backward Lorentz transform -- (x', ct') -> (x, ct)
