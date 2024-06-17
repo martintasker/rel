@@ -2,7 +2,7 @@ import React, {ReactElement, useContext} from 'react';
 import {URFigureContext} from './URFigure';
 import {rangeFromTo} from '../util/range';
 import {clip} from '../util/clip';
-import {strokeDashArray} from './strokeDashArray';
+import {URLine} from './URLine';
 
 type XCTGridProps = {
   xRange: [number, number];
@@ -15,8 +15,8 @@ export function XCTGrid({
   ctRange: [ctMin, ctMax],
   beta = 0,
 }: XCTGridProps): ReactElement {
-  const thinStrokeDashArray = beta === 0 ? undefined : '0.1';
-  const {xf, yf, fatStrokeWidth, thinStrokeWidth, strokeColor} =
+  const thinStrokeDashStyle = beta === 0 ? '---' : '...';
+  const {fatStrokeWidth, thinStrokeWidth, strokeColor} =
     useContext(URFigureContext);
 
   const gamma = 1 / Math.sqrt(1 - beta * beta);
@@ -50,15 +50,13 @@ export function XCTGrid({
         }
         const [x1c, ct1c, x2c, ct2c] = clippedCoords;
         return (
-          <line
+          <URLine
             key={xp}
-            x1={xf(x1c)}
-            y1={yf(ct1c)}
-            x2={xf(x2c)}
-            y2={yf(ct2c)}
-            stroke={strokeColor}
+            p1={[x1c, ct1c]}
+            p2={[x2c, ct2c]}
+            strokeColor={strokeColor}
             strokeWidth={xp === 0 ? fatStrokeWidth : thinStrokeWidth}
-            strokeDasharray={strokeDashArray(xp, thinStrokeDashArray)}
+            dashStyle={xp === 0 ? '---' : thinStrokeDashStyle}
           />
         );
       })}
@@ -78,15 +76,13 @@ export function XCTGrid({
         }
         const [x1c, ct1c, x2c, ct2c] = clippedCoords;
         return (
-          <line
+          <URLine
             key={ctp}
-            x1={xf(x1c)}
-            y1={yf(ct1c)}
-            x2={xf(x2c)}
-            y2={yf(ct2c)}
-            stroke={strokeColor}
+            p1={[x1c, ct1c]}
+            p2={[x2c, ct2c]}
+            strokeColor={strokeColor}
             strokeWidth={ctp === 0 ? fatStrokeWidth : thinStrokeWidth}
-            strokeDasharray={strokeDashArray(ctp, thinStrokeDashArray)}
+            dashStyle={ctp === 0 ? '---' : thinStrokeDashStyle}
           />
         );
       })}
