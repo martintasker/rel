@@ -15,8 +15,7 @@ type URFigureContextType = {
   yf: (y: number) => number;
   backgroundColor: string;
   strokeColor: string;
-  thinStrokeWidth: number;
-  fatStrokeWidth: number;
+  unitStrokeWidth: number;
 };
 
 const defaultFigureContext: URFigureContextType = {
@@ -27,8 +26,7 @@ const defaultFigureContext: URFigureContextType = {
   yf: (y) => y,
   backgroundColor: '#111',
   strokeColor: '#888',
-  thinStrokeWidth: 0.03,
-  fatStrokeWidth: 0.1,
+  unitStrokeWidth: 0.03,
 };
 
 export const URFigureContext =
@@ -51,6 +49,7 @@ export function URFigure({
   const scale = Math.min(xScale, yScale);
   const dx = 0.5 * (width - scale * (xMax - xMin));
   const dy = 0.5 * (height - scale * (yMax - yMin));
+  const unitStrokeWidth = 1 / scale;
 
   const value: URFigureContextType = useMemo(
     () => ({
@@ -60,8 +59,9 @@ export function URFigure({
       yRange,
       xf: (x) => x - xMin,
       yf: (y) => yMax - y,
+      unitStrokeWidth,
     }),
-    [pixelSize, xMin, xRange, yMax, yRange],
+    [pixelSize, unitStrokeWidth, xMin, xRange, yMax, yRange],
   );
 
   return (

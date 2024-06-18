@@ -1,5 +1,4 @@
-import React, {ReactElement, useContext} from 'react';
-import {URFigureContext} from './URFigure';
+import React, {ReactElement} from 'react';
 import {rangeFromTo} from '../util/range';
 import {clip} from '../util/clip';
 import {URLine} from './URLine';
@@ -16,7 +15,6 @@ export function XTGrid({
   v = 0, // v relative to rest frame
 }: XTGridProps): ReactElement {
   const thinStrokeDashStyle = v === 0 ? '---' : '...';
-  const {fatStrokeWidth, thinStrokeWidth} = useContext(URFigureContext);
   // backward Galilean transform -- (x', t') -> (x, t)
   const xr = (xp: number, tp: number) => xp + v * tp;
   const tr = (tp: number) => tp;
@@ -51,7 +49,7 @@ export function XTGrid({
             key={xp}
             p1={[x1c, t1c]}
             p2={[x2c, t2c]}
-            strokeWidth={xp === 0 ? fatStrokeWidth : thinStrokeWidth}
+            strokeWidth={xp === 0 ? 0 : -1}
             dashStyle={xp === 0 ? '---' : thinStrokeDashStyle}
           />
         );
@@ -76,7 +74,7 @@ export function XTGrid({
             key={tp}
             p1={[x1c, t1c]}
             p2={[x2c, t2c]}
-            strokeWidth={tp === 0 ? fatStrokeWidth : thinStrokeWidth}
+            strokeWidth={tp === 0 ? 0 : -1}
             dashStyle={tp === 0 ? '---' : thinStrokeDashStyle}
           />
         );
