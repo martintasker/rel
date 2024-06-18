@@ -73,6 +73,11 @@ export function URFigure({
           width={width}
           height={height}
         >
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" orient="auto">
+              <line x1="100" y1="0" x2="0" y2="5" stroke="context-stroke" />
+            </marker>
+          </defs>
           <rect width="100%" height="100%" fill={backgroundColor} />
           <g transform={`translate(${dx}, ${dy}) scale(${scale})`}>
             {children}

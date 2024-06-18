@@ -8,6 +8,7 @@ type Props = {
   strokeColor?: string | undefined;
   strokeWidth?: 0 | 1 | -1 | undefined;
   dashStyle?: string | undefined;
+  startArrow?: boolean | undefined;
 };
 
 export function URLine({
@@ -16,9 +17,13 @@ export function URLine({
   strokeColor = '#fff',
   strokeWidth = 0,
   dashStyle,
+  startArrow = true,
 }: Props): ReactElement {
   const {xf, yf} = useContext(URFigureContext);
   const figureStrokeWidth = useGetStrokeWidth(strokeWidth);
+  const markers = {
+    markerEnd: 'url(#arrow)',
+  };
   return (
     <line
       x1={xf(x1)}
@@ -28,6 +33,7 @@ export function URLine({
       stroke={strokeColor}
       strokeWidth={figureStrokeWidth}
       strokeDasharray={strokeDashArray(dashStyle)}
+      {...markers}
     />
   );
 }
