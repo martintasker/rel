@@ -16,8 +16,7 @@ export function XTGrid({
   v = 0, // v relative to rest frame
 }: XTGridProps): ReactElement {
   const thinStrokeDashStyle = v === 0 ? '---' : '...';
-  const {fatStrokeWidth, thinStrokeWidth, strokeColor} =
-    useContext(URFigureContext);
+  const {fatStrokeWidth, thinStrokeWidth} = useContext(URFigureContext);
   // backward Galilean transform -- (x', t') -> (x, t)
   const xr = (xp: number, tp: number) => xp + v * tp;
   const tr = (tp: number) => tp;
@@ -52,7 +51,6 @@ export function XTGrid({
             key={xp}
             p1={[x1c, t1c]}
             p2={[x2c, t2c]}
-            strokeColor={strokeColor}
             strokeWidth={xp === 0 ? fatStrokeWidth : thinStrokeWidth}
             dashStyle={xp === 0 ? '---' : thinStrokeDashStyle}
           />
@@ -78,7 +76,6 @@ export function XTGrid({
             key={tp}
             p1={[x1c, t1c]}
             p2={[x2c, t2c]}
-            strokeColor={strokeColor}
             strokeWidth={tp === 0 ? fatStrokeWidth : thinStrokeWidth}
             dashStyle={tp === 0 ? '---' : thinStrokeDashStyle}
           />

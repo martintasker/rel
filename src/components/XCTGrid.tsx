@@ -16,8 +16,7 @@ export function XCTGrid({
   beta = 0,
 }: XCTGridProps): ReactElement {
   const thinStrokeDashStyle = beta === 0 ? '---' : '...';
-  const {fatStrokeWidth, thinStrokeWidth, strokeColor} =
-    useContext(URFigureContext);
+  const {fatStrokeWidth, thinStrokeWidth} = useContext(URFigureContext);
 
   const gamma = 1 / Math.sqrt(1 - beta * beta);
   // backward Lorentz transform -- (x', ct') -> (x, ct)
@@ -54,7 +53,6 @@ export function XCTGrid({
             key={xp}
             p1={[x1c, ct1c]}
             p2={[x2c, ct2c]}
-            strokeColor={strokeColor}
             strokeWidth={xp === 0 ? fatStrokeWidth : thinStrokeWidth}
             dashStyle={xp === 0 ? '---' : thinStrokeDashStyle}
           />
@@ -80,7 +78,6 @@ export function XCTGrid({
             key={ctp}
             p1={[x1c, ct1c]}
             p2={[x2c, ct2c]}
-            strokeColor={strokeColor}
             strokeWidth={ctp === 0 ? fatStrokeWidth : thinStrokeWidth}
             dashStyle={ctp === 0 ? '---' : thinStrokeDashStyle}
           />
