@@ -35,14 +35,10 @@ export function XCTGrid({
     <>
       {rangeFromTo(xpMin, xpMax).map((xp) => {
         const clippedCoords = clip(
-          xr(xp, ctpMin),
-          ctr(xp, ctpMin),
-          xr(xp, ctpMax),
-          ctr(xp, ctpMax),
-          xMin,
-          xMax,
-          ctMin,
-          ctMax,
+          [xr(xp, ctpMin), ctr(xp, ctpMin)],
+          [xr(xp, ctpMax), ctr(xp, ctpMax)],
+          [xMin, xMax],
+          [ctMin, ctMax],
         );
         if (clippedCoords == null) {
           return null;
@@ -63,14 +59,10 @@ export function XCTGrid({
       })}
       {rangeFromTo(ctpMin, ctpMax).map((ctp) => {
         const clippedCoords = clip(
-          xr(xpMin, ctp),
-          ctr(xpMin, ctp),
-          xr(xpMax, ctp),
-          ctr(xpMax, ctp),
-          xMin,
-          xMax,
-          ctMin,
-          ctMax,
+          [xr(xpMin, ctp), ctr(xpMin, ctp)],
+          [xr(xpMax, ctp), ctr(xpMax, ctp)],
+          [xMin, xMax],
+          [ctMin, ctMax],
         );
         if (clippedCoords == null) {
           return null;

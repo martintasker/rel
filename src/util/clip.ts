@@ -1,13 +1,13 @@
 export function clip(
-  x1: number,
-  y1: number,
-  x2: number,
-  y2: number,
-  xMin: number,
-  xMax: number,
-  yMin: number,
-  yMax: number,
+  p1: [number, number],
+  p2: [number, number],
+  xInterval: [number, number],
+  yInterval: [number, number],
 ): [number, number, number, number] | null {
+  const [x1, y1] = p1;
+  const [x2, y2] = p2;
+  const [xMin, xMax] = xInterval;
+  const [yMin, yMax] = yInterval;
   let nSwaps = 0;
   if (
     (x1 > xMax && x2 > xMax) ||

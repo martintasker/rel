@@ -14,7 +14,7 @@ export function XTGrid({
   xRange: [xMin, xMax], // rest frame min, max
   tRange: [tMin, tMax], // rest frame min, max
   v = 0, // v relative to rest frame
-  strokeColor = '#afa',
+  strokeColor = '#8ee',
 }: XTGridProps): ReactElement {
   const thinStrokeDashStyle = v === 0 ? '---' : '...';
   // backward Galilean transform -- (x', t') -> (x, t)
@@ -34,14 +34,10 @@ export function XTGrid({
       {rangeFromTo(xpMin, xpMax).map((xp) => {
         const isAxis = xp === 0;
         const clippedCoords = clip(
-          xr(xp, tpMin),
-          tr(tpMin),
-          xr(xp, tpMax),
-          tr(tpMax),
-          xMin,
-          xMax,
-          tMin,
-          tMax,
+          [xr(xp, tpMin), tr(tpMin)],
+          [xr(xp, tpMax), tr(tpMax)],
+          [xMin, xMax],
+          [tMin, tMax],
         );
         if (clippedCoords == null) {
           return <></>;
@@ -61,14 +57,10 @@ export function XTGrid({
       })}
       {rangeFromTo(tpMin, tpMax).map((tp) => {
         const clippedCoords = clip(
-          xr(xpMin, tp),
-          tr(tp),
-          xr(xpMax, tp),
-          tr(tp),
-          xMin,
-          xMax,
-          tMin,
-          tMax,
+          [xr(xpMin, tp), tr(tp)],
+          [xr(xpMax, tp), tr(tp)],
+          [xMin, xMax],
+          [tMin, tMax],
         );
         if (clippedCoords == null) {
           return <></>;
