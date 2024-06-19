@@ -7,12 +7,14 @@ type XTGridProps = {
   xRange: [number, number];
   tRange: [number, number];
   v?: number;
+  strokeColor?: string;
 };
 
 export function XTGrid({
   xRange: [xMin, xMax], // rest frame min, max
   tRange: [tMin, tMax], // rest frame min, max
   v = 0, // v relative to rest frame
+  strokeColor = '#afa',
 }: XTGridProps): ReactElement {
   const thinStrokeDashStyle = v === 0 ? '---' : '...';
   // backward Galilean transform -- (x', t') -> (x, t)
@@ -30,6 +32,7 @@ export function XTGrid({
   return (
     <>
       {rangeFromTo(xpMin, xpMax).map((xp) => {
+        const isAxis = xp === 0;
         const clippedCoords = clip(
           xr(xp, tpMin),
           tr(tpMin),
@@ -44,7 +47,6 @@ export function XTGrid({
           return <></>;
         }
         const [x1c, t1c, x2c, t2c] = clippedCoords;
-        const isAxis = xp === 0;
         return (
           <URLine
             key={xp}
@@ -53,6 +55,7 @@ export function XTGrid({
             strokeWidth={isAxis ? 0 : -1}
             dashStyle={isAxis ? '---' : thinStrokeDashStyle}
             hasEndArrow={isAxis}
+            {...{strokeColor}}
           />
         );
       })}
@@ -80,6 +83,7 @@ export function XTGrid({
             strokeWidth={isAxis ? 0 : -1}
             dashStyle={isAxis ? '---' : thinStrokeDashStyle}
             hasEndArrow={isAxis}
+            {...{strokeColor}}
           />
         );
       })}

@@ -7,12 +7,14 @@ type XCTGridProps = {
   xRange: [number, number];
   ctRange: [number, number];
   beta?: number;
+  strokeColor?: string;
 };
 
 export function XCTGrid({
   xRange: [xMin, xMax],
   ctRange: [ctMin, ctMax],
   beta = 0,
+  strokeColor = '#aaf',
 }: XCTGridProps): ReactElement {
   const thinStrokeDashStyle = beta === 0 ? '---' : '...';
 
@@ -43,7 +45,7 @@ export function XCTGrid({
           ctMax,
         );
         if (clippedCoords == null) {
-          return <></>;
+          return null;
         }
         const [x1c, ct1c, x2c, ct2c] = clippedCoords;
         const isAxis = xp === 0;
@@ -55,6 +57,7 @@ export function XCTGrid({
             strokeWidth={isAxis ? 0 : -1}
             dashStyle={isAxis ? '---' : thinStrokeDashStyle}
             hasEndArrow={isAxis}
+            {...{strokeColor}}
           />
         );
       })}
@@ -70,7 +73,7 @@ export function XCTGrid({
           ctMax,
         );
         if (clippedCoords == null) {
-          return <></>;
+          return null;
         }
         const [x1c, ct1c, x2c, ct2c] = clippedCoords;
         const isAxis = ctp === 0;
@@ -82,6 +85,7 @@ export function XCTGrid({
             strokeWidth={isAxis ? 0 : -1}
             dashStyle={isAxis ? '---' : thinStrokeDashStyle}
             hasEndArrow={isAxis}
+            {...{strokeColor}}
           />
         );
       })}

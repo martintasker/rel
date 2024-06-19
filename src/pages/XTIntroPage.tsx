@@ -16,23 +16,33 @@ export default function TestGridsPage(): ReactElement {
             <URLine
               p1={[0, 0]}
               p2={[0, 8]}
-              strokeWidth={1}
               hasEndArrow={true}
+              strokeColor="yellow"
             />
             <URLine
               p1={[0, 0]}
               p2={[4, 8]}
-              strokeWidth={1}
               hasEndArrow={true}
+              strokeColor="yellow"
             />
             <URLine
               p1={[4, 0]}
               p2={[8, 8]}
-              strokeWidth={1}
               hasEndArrow={true}
+              strokeColor="yellow"
             />
-            <URLine p1={[1, 2]} p2={[7, 6]} hasEndArrow={true} />
-            <URLine p1={[5, 2]} p2={[3, 6]} hasEndArrow={true} />
+            <URLine
+              p1={[1, 2]}
+              p2={[7, 6]}
+              hasEndArrow={true}
+              strokeColor="red"
+            />
+            <URLine
+              p1={[5, 2]}
+              p2={[3, 6]}
+              hasEndArrow={true}
+              strokeColor="red"
+            />
           </URFigure>
         </UFlexbox>
         <UFlexbox direction="column">
@@ -42,23 +52,33 @@ export default function TestGridsPage(): ReactElement {
             <URLine
               p1={[0, 0]}
               p2={[-4, 8]}
-              strokeWidth={1}
               hasEndArrow={true}
+              strokeColor="yellow"
             />
             <URLine
               p1={[0, 0]}
               p2={[0, 8]}
-              strokeWidth={1}
               hasEndArrow={true}
+              strokeColor="yellow"
             />
             <URLine
               p1={[4, 0]}
               p2={[4, 8]}
-              strokeWidth={1}
               hasEndArrow={true}
+              strokeColor="yellow"
             />
-            <URLine p1={[0, 2]} p2={[4, 6]} hasEndArrow={true} />
-            <URLine p1={[4, 2]} p2={[0, 6]} hasEndArrow={true} />
+            <URLine
+              p1={[0, 2]}
+              p2={[4, 6]}
+              hasEndArrow={true}
+              strokeColor="red"
+            />
+            <URLine
+              p1={[4, 2]}
+              p2={[0, 6]}
+              hasEndArrow={true}
+              strokeColor="red"
+            />
           </URFigure>
         </UFlexbox>
       </UFlexbox>
