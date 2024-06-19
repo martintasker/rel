@@ -46,13 +46,15 @@ export function XCTGrid({
           return <></>;
         }
         const [x1c, ct1c, x2c, ct2c] = clippedCoords;
+        const isAxis = xp === 0;
         return (
           <URLine
             key={xp}
             p1={[x1c, ct1c]}
             p2={[x2c, ct2c]}
-            strokeWidth={xp === 0 ? 0 : -1}
-            dashStyle={xp === 0 ? '---' : thinStrokeDashStyle}
+            strokeWidth={isAxis ? 0 : -1}
+            dashStyle={isAxis ? '---' : thinStrokeDashStyle}
+            hasEndArrow={isAxis}
           />
         );
       })}
@@ -71,13 +73,15 @@ export function XCTGrid({
           return <></>;
         }
         const [x1c, ct1c, x2c, ct2c] = clippedCoords;
+        const isAxis = ctp === 0;
         return (
           <URLine
             key={ctp}
             p1={[x1c, ct1c]}
             p2={[x2c, ct2c]}
-            strokeWidth={ctp === 0 ? 0 : -1}
-            dashStyle={ctp === 0 ? '---' : thinStrokeDashStyle}
+            strokeWidth={isAxis ? 0 : -1}
+            dashStyle={isAxis ? '---' : thinStrokeDashStyle}
+            hasEndArrow={isAxis}
           />
         );
       })}

@@ -8,6 +8,7 @@ export function clip(
   yMin: number,
   yMax: number,
 ): [number, number, number, number] | null {
+  let nSwaps = 0;
   if (
     (x1 > xMax && x2 > xMax) ||
     (y1 > yMax && y2 > yMax) ||
@@ -26,6 +27,7 @@ export function clip(
     const yt = y2c;
     y2c = y1c;
     y1c = yt;
+    nSwaps++;
   }
   if (x1c < xMin) {
     const dx = x2c - x1c;
@@ -54,6 +56,7 @@ export function clip(
     const yt = y2c;
     y2c = y1c;
     y1c = yt;
+    nSwaps++;
   }
   if (y1c < yMin) {
     const dx = x2c - x1c;
@@ -75,5 +78,5 @@ export function clip(
       return null;
     }
   }
-  return [x1c, y1c, x2c, y2c];
+  return nSwaps % 2 === 0 ? [x1c, y1c, x2c, y2c] : [x2c, y2c, x1c, y1c];
 }
